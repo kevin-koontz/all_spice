@@ -25,6 +25,7 @@ public class RecipesService
 
   internal Recipe GetRecipeById(int recipeId)
   {
-    throw new NotImplementedException();
+    Recipe recipe = _repository.GetRecipeById(recipeId);
+    return recipe;
   }
 }
