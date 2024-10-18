@@ -27,6 +27,10 @@ public class RecipesService
   internal Recipe GetRecipeById(int recipeId)
   {
     Recipe recipe = _repository.GetRecipeById(recipeId);
+    if (recipe == null)
+    {
+      throw new Exception($"Invalid recipe id: {recipeId}");
+    }
     return recipe;
   }
 
