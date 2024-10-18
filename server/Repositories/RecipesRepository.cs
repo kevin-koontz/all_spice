@@ -70,6 +70,26 @@ public class RecipesRepository
 
   internal void UpdateRecipe(Recipe recipe)
   {
-    throw new NotImplementedException();
+    string sql = @"
+    UPDATE recipes
+    SET
+    title = @Title,
+    instructions = @Instructions,
+    img = @Img,
+    category = @Category
+    WHERE id = @Id
+    LIMIT 1;";
+
+    int rowsAffected = _db.Execute(sql, recipe);
+
+    if (rowsAffected == 0)
+    {
+      throw new Exception("No recipes were updated");
+    }
+
+    if (rowsAffected > 1)
+    {
+      throw new Exception($"{rowsAffected} recipes were updated!");
+    }
   }
 }
