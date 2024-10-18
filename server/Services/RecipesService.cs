@@ -52,18 +52,32 @@ public class RecipesService
     return recipe;
   }
 
-  internal Recipe ArchiveRecipe(int recipeId, string userId)
+  internal string DeleteRecipe(int recipeId, string userId)
   {
-    Recipe recipeToArchive = GetRecipeById(recipeId);
+    Recipe recipe = GetRecipeById(recipeId);
 
-    if (recipeToArchive.CreatorId != userId)
+    if (recipe.CreatorId != userId)
     {
-      throw new Exception("Only the creator of this recipe may DELETE the recipe.");
+      throw new Exception("Only the creator of the recipe may DELETE this recipe!");
     }
 
-    recipeToArchive.Archived = !recipeToArchive.Archived;
-
-    _repository.ArchiveRecipe(recipeToArchive);
-    return recipeToArchive;
+    _repository.DeleteRecipe(recipeId);
+    return $"{recipe.Title} was deleted!";
   }
+
+  // internal Recipe ArchiveRecipe(int recipeId, string userId)
+  // {
+  //   Recipe recipeToArchive = GetRecipeById(recipeId);
+
+  //   if (recipeToArchive.CreatorId != userId)
+  //   {
+  //     throw new Exception("Only the creator of this recipe may DELETE the recipe.");
+  //   }
+
+  //   recipeToArchive.Archived = !recipeToArchive.Archived;
+
+  //   _repository.ArchiveRecipe(recipeToArchive);
+  //   return recipeToArchive;
+  // }
+
 }

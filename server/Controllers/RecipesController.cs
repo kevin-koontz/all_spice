@@ -78,18 +78,34 @@ public class RecipesController : ControllerBase
 
   [Authorize]
   [HttpDelete("{recipeId}")]
-  public async Task<ActionResult<Recipe>> ArchiveRecipe(int recipeId)
+  public async Task<ActionResult<string>> DeleteRecipe(int recipeId)
   {
     try
     {
       Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
-      Recipe recipe = _recipesService.ArchiveRecipe(recipeId, userInfo.Id);
-      return Ok(recipe);
+      string message = _recipesService.DeleteRecipe(recipeId, userInfo.Id);
+      return Ok(message);
     }
     catch (Exception exception)
     {
       return BadRequest(exception.Message);
     }
   }
+
+  // [Authorize]
+  // [HttpDelete("{recipeId}")]
+  // public async Task<ActionResult<Recipe>> ArchiveRecipe(int recipeId)
+  // {
+  //   try
+  //   {
+  //     Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+  //     Recipe recipe = _recipesService.ArchiveRecipe(recipeId, userInfo.Id);
+  //     return Ok(recipe);
+  //   }
+  //   catch (Exception exception)
+  //   {
+  //     return BadRequest(exception.Message);
+  //   }
+  // }
 
 }

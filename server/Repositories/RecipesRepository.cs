@@ -93,24 +93,40 @@ public class RecipesRepository
     }
   }
 
-  internal void ArchiveRecipe(Recipe recipeToArchive)
+  internal void DeleteRecipe(int recipeId)
   {
-    string sql = @"
-    UPDATE
-    recipes
-    SET archived = @Archived
-    WHERE id = @Id
-    LIMIT 1;";
+    string sql = "DELETE FROM recipes WHERE id = @recipeId LIMIT 1";
 
-    int rowsAffected = _db.Execute(sql, recipeToArchive);
+    int rowsAffected = _db.Execute(sql, new { recipeId });
 
     if (rowsAffected == 0)
     {
-      throw new Exception("No recipes were updated!");
+      throw new Exception("No recipe was DELETED!");
     }
     if (rowsAffected > 1)
     {
-      throw new Exception($"{rowsAffected} recipes were updated!!!");
+      throw new Exception($"{rowsAffected} recipes were DELETED!!!");
     }
   }
+
+  // internal void ArchiveRecipe(Recipe recipeToArchive)
+  // {
+  //   string sql = @"
+  //   UPDATE
+  //   recipes
+  //   SET archived = @Archived
+  //   WHERE id = @Id
+  //   LIMIT 1;";
+
+  //   int rowsAffected = _db.Execute(sql, recipeToArchive);
+
+  //   if (rowsAffected == 0)
+  //   {
+  //     throw new Exception("No recipes were updated!");
+  //   }
+  //   if (rowsAffected > 1)
+  //   {
+  //     throw new Exception($"{rowsAffected} recipes were updated!!!");
+  //   }
+  // }
 }
