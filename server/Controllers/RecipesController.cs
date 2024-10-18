@@ -59,5 +59,20 @@ public class RecipesController : ControllerBase
     }
   }
 
+  [Authorize]
+  [HttpPut("{recipeId}")]
+  public ActionResult<Recipe> UpdateRecipe(int recipeId)
+  {
+    try
+    {
+      Recipe recipe = _recipesService.UpdateRecipe(recipeId);
+      return Ok(recipe);
+    }
+    catch (Exception exception)
+    {
+
+      return BadRequest(exception.Message);
+    }
+  }
 
 }

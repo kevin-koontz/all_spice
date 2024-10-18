@@ -1,6 +1,7 @@
 
 
 
+
 namespace all_spice.Services;
 
 public class RecipesService
@@ -27,5 +28,10 @@ public class RecipesService
   {
     Recipe recipe = _repository.GetRecipeById(recipeId);
     return recipe;
+  }
+
+  internal Recipe UpdateRecipe(int recipeId)
+  {
+    throw new NotImplementedException();
   }
 }
