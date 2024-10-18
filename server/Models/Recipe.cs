@@ -20,6 +20,8 @@ public class Recipe
 
   public string Category { get; set; }
 
+  public bool Archived { get; set; }
+
   [MaxLength(255)]
   public string CreatorId { get; set; }
   public Profile Creator { get; set; }

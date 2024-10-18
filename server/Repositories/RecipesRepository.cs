@@ -92,4 +92,25 @@ public class RecipesRepository
       throw new Exception($"{rowsAffected} recipes were updated!");
     }
   }
+
+  internal void ArchiveRecipe(Recipe recipeToArchive)
+  {
+    string sql = @"
+    UPDATE
+    recipes
+    SET archived = @Archived
+    WHERE id = @Id
+    LIMIT 1;";
+
+    int rowsAffected = _db.Execute(sql, recipeToArchive);
+
+    if (rowsAffected == 0)
+    {
+      throw new Exception("No recipes were updated!");
+    }
+    if (rowsAffected > 1)
+    {
+      throw new Exception($"{rowsAffected} recipes were updated!!!");
+    }
+  }
 }

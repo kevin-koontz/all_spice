@@ -51,4 +51,19 @@ public class RecipesService
     _repository.UpdateRecipe(recipe);
     return recipe;
   }
+
+  internal Recipe ArchiveRecipe(int recipeId, string userId)
+  {
+    Recipe recipeToArchive = GetRecipeById(recipeId);
+
+    if (recipeToArchive.CreatorId != userId)
+    {
+      throw new Exception("Only the creator of this recipe may DELETE the recipe.");
+    }
+
+    recipeToArchive.Archived = !recipeToArchive.Archived;
+
+    _repository.ArchiveRecipe(recipeToArchive);
+    return recipeToArchive;
+  }
 }
