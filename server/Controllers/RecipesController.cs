@@ -61,11 +61,12 @@ public class RecipesController : ControllerBase
 
   [Authorize]
   [HttpPut("{recipeId}")]
-  public ActionResult<Recipe> UpdateRecipe(int recipeId)
+  public async Task<ActionResult<Recipe>> UpdateRecipe(int recipeId, [FromBody] Recipe recipeUpdateData)
   {
     try
     {
-      Recipe recipe = _recipesService.UpdateRecipe(recipeId);
+      Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+      Recipe recipe = _recipesService.UpdateRecipe(recipeId, userInfo.Id, recipeUpdateData);
       return Ok(recipe);
     }
     catch (Exception exception)

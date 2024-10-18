@@ -1,6 +1,7 @@
 
 
 
+
 namespace all_spice.Repositories;
 
 public class RecipesRepository
@@ -65,5 +66,10 @@ public class RecipesRepository
 
     Recipe recipe = _db.Query<Recipe, Profile, Recipe>(sql, JoinCreatorToRecipe, new { recipeId }).FirstOrDefault();
     return recipe;
+  }
+
+  internal void UpdateRecipe(Recipe recipe)
+  {
+    throw new NotImplementedException();
   }
 }

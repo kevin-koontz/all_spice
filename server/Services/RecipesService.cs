@@ -34,8 +34,21 @@ public class RecipesService
     return recipe;
   }
 
-  internal Recipe UpdateRecipe(int recipeId)
+  internal Recipe UpdateRecipe(int recipeId, string userId, Recipe recipeUpdateData)
   {
-    throw new NotImplementedException();
+    Recipe recipe = GetRecipeById(recipeId);
+
+    if (recipe.CreatorId != userId)
+    {
+      throw new Exception("Only the creator of the recipe may UPDATE the recipe!");
+    }
+
+    recipe.Title = recipeUpdateData.Title ?? recipe.Title;
+    recipe.Instructions = recipeUpdateData.Instructions ?? recipe.Instructions;
+    recipe.Img = recipeUpdateData.Img ?? recipe.Img;
+    recipe.Category = recipeUpdateData.Category ?? recipe.Category;
+
+    _repository.UpdateRecipe(recipe);
+    return recipe;
   }
 }
