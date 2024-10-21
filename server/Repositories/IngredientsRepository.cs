@@ -11,6 +11,14 @@ public class IngredientsRepository
 
   internal Ingredient CreateIngredient(Ingredient ingredientData)
   {
-    throw new NotImplementedException();
+    string sql = @"
+    INSERT INTO
+    ingredients(name, quantity, recipeId)
+    VALUES(@Name, @Quantity, @RecipeId);
+
+    SELECT * FROM ingredients WHERE id = LAST_INSERT_ID();";
+
+    Ingredient ingredient = _db.Query<Ingredient>(sql, ingredientData).FirstOrDefault();
+    return ingredient;
   }
 }
