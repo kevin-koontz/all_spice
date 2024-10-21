@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace all_spice.Models;
 
-public class Ingredients
+public class Ingredient
 {
   public int Id { get; set; }
   public DateTime CreatedAt { get; set; }

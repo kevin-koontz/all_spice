@@ -1,3 +1,4 @@
+
 namespace all_spice.Repositories;
 
 public class IngredientsRepository
@@ -7,4 +8,9 @@ public class IngredientsRepository
     _db = db;
   }
   private readonly IDbConnection _db;
+
+  internal Ingredient CreateIngredient(Ingredient ingredientData)
+  {
+    throw new NotImplementedException();
+  }
 }
