@@ -1,4 +1,5 @@
 
+
 namespace all_spice.Services;
 
 public class IngredientsService
@@ -23,5 +24,10 @@ public class IngredientsService
 
     Ingredient ingredient = _repository.CreateIngredient(ingredientData);
     return ingredient;
+  }
+
+  internal List<Ingredient> GetIngredientsByRecipe(int recipeId)
+  {
+    throw new NotImplementedException();
   }
 }
