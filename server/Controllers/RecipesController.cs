@@ -102,10 +102,9 @@ public class RecipesController : ControllerBase
       List<Ingredient> ingredients = _ingredientsService.GetIngredientsByRecipe(recipeId);
       return Ok(ingredients);
     }
-    catch (System.Exception)
+    catch (Exception exception)
     {
-
-      throw;
+      return BadRequest(exception.Message);
     }
   }
 
