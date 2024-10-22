@@ -1,5 +1,6 @@
 
 
+
 namespace all_spice.Repositories;
 
 public class IngredientsRepository
@@ -40,5 +41,10 @@ public class IngredientsRepository
       return ingredient;
     }, new { recipeId }).ToList();
     return ingredients;
+  }
+
+  internal Ingredient GetIngredientById(int ingredientId)
+  {
+    throw new NotImplementedException();
   }
 }

@@ -4,7 +4,7 @@ namespace all_spice.Controllers;
 [Route("api/[controller]")]
 public class IngredientsController : ControllerBase
 {
-  public IngredientsController(IngredientsService ingredientsService, Auth0Provider auth0Provider)
+  public IngredientsController(IngredientsService ingredientsService, Auth0Provider auth0Provider, RecipesService recipesService)
   {
     _ingredientsService = ingredientsService;
     _auth0Provider = auth0Provider;
@@ -28,4 +28,21 @@ public class IngredientsController : ControllerBase
       return BadRequest(exception.Message);
     }
   }
+
+  [Authorize]
+  [HttpDelete("{ingredientId}")]
+  public async Task<ActionResult<Ingredient>> DeleteIngredient(int ingredientId)
+  {
+    try
+    {
+      Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+      _ingredientsService.DeleteIngredient(ingredientId, userInfo.Id);
+      return Ok("Ingredients deleted!");
+    }
+    catch (Exception exception)
+    {
+      return BadRequest(exception.Message);
+    }
+  }
+
 }
