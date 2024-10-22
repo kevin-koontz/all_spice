@@ -25,6 +25,20 @@ public class IngredientsRepository
 
   internal List<Ingredient> GetIngredientsByRecipe(int recipeId)
   {
-    throw new NotImplementedException();
+    string sql = @"
+    SELECT
+    ingredients.*,
+    recipes.*
+    FROM
+    ingredients
+    JOIN recipes ON recipes.id = ingredients.recipeId
+    WHERE ingredients.recipeId = @recipeId;";
+
+    List<Ingredient> ingredients = _db.Query<Ingredient, Recipe, Ingredient>(sql, (ingredient, recipe) =>
+    {
+      recipe.Id = ingredient.RecipeId;
+      return ingredient;
+    }, new { recipeId }).ToList();
+    return ingredients;
   }
 }

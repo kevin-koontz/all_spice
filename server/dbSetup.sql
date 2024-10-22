@@ -36,5 +36,3 @@ CREATE TABLE ingredients (
     recipeId INT NOT NULL,
     FOREIGN KEY (recipeId) REFERENCES recipes (id) ON DELETE CASCADE
 );
-
--- //NOTE - Last update => completed ingredients table Next => implement ingredients backend to pass postman tests
