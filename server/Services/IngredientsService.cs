@@ -45,11 +45,18 @@ public class IngredientsService
   internal void DeleteIngredient(int ingredientId, string userId)
   {
     Ingredient ingredient = GetIngredientById(ingredientId);
+    Recipe recipe = _recipesService.GetRecipeById(ingredient.RecipeId);
 
-    if (ingredient.RecipeId == userId) //need to fix! this is where we left off/ need to add business logic so can only delete ingredient if user created recipe
+    if (recipe.CreatorId != userId)
     {
-      throw new Exception("You do not have access to delete this ingredient!");
+      throw new Exception($"Cannot delete ingredients to a recipe you did not create!");
     }
+
+    if (ingredient.RecipeId != recipe.Id)
+    {
+      throw new Exception($" {ingredientId} does NOT belong to this recipe! Delete request denied!!!");
+    }
+
     _repository.DeleteIngredient(ingredientId);
   }
 }

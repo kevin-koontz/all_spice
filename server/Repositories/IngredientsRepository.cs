@@ -1,6 +1,5 @@
 
 
-
 namespace all_spice.Repositories;
 
 public class IngredientsRepository
@@ -45,6 +44,23 @@ public class IngredientsRepository
 
   internal Ingredient GetIngredientById(int ingredientId)
   {
-    throw new NotImplementedException();
+    string sql = @"
+    SELECT *
+    FROM ingredients WHERE id = @ingredientId;";
+
+    Ingredient ingredient = _db.Query<Ingredient>(sql, new { ingredientId }).FirstOrDefault();
+    return ingredient;
+  }
+
+  internal void DeleteIngredient(int ingredientId)
+  {
+    string sql = @"DELETE FROM ingredients WHERE id = @ingredientId LIMIT 1;";
+
+    int rowsAffected = _db.Execute(sql, new { ingredientId });
+
+    if (rowsAffected != 1)
+    {
+      throw new Exception($"{rowsAffected} ingredient were deleted. Check your SQL syntax!");
+    }
   }
 }
